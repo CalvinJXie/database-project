@@ -8,26 +8,35 @@
     <script src="scripts/stock.js" defer></script>
     <style>
         /* Inline styles for the navigation bar */
-        .nav-bar {
+        .global-nav {
+            background-color: #35424a;
+            color: white;
+            padding: 10px 20px;
             position: fixed;
             top: 0;
-            left: 0;
-            width: 200px;
-            height: 100%;
-            background-color: #f4f4f4;
-            border-right: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .nav-bar a {
-            display: block;
-            margin-bottom: 10px;
+        .global-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        .global-nav ul li {
+            display: inline;
+        }
+        .global-nav ul li a {
+            color: white;
             text-decoration: none;
-            color: #333;
             font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
         }
-        .nav-bar a:hover {
-            color: #007BFF;
+        .global-nav ul li a:hover {
+            background-color: #007BFF;
         }
         .container {
             margin-left: 220px; /* Adjusted margin to account for the left nav-bar */
@@ -79,10 +88,14 @@
     </style>
 </head>
 <body>
-    <!-- Navigation bar -->
-    <div class="nav-bar">
-        <a href="portfolio.html">Go to Portfolio</a>
-    </div>
+    <!-- Global navigation -->
+    <nav class="global-nav">
+        <ul>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="stock.html">Search Stocks</a></li>
+            <li><a href="positions.html">View Positions</a></li>
+        </ul>
+    </nav>
 
     <!-- Main content container -->
     <div class="container">

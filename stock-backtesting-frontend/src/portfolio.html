@@ -8,34 +8,39 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            display: flex;
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        .nav-bar {
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            height: 100vh;
+        .global-nav {
+            background-color: #35424a;
+            color: white;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .nav-bar ul {
+        .global-nav ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            display: flex;
         }
-        .nav-bar ul li {
-            margin: 15px 0;
+        .global-nav ul li {
+            margin-right: 20px;
         }
-        .nav-bar ul li a {
+        .global-nav ul li a {
+            color: white;
             text-decoration: none;
-            color: #333;
             font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
         }
-        .nav-bar ul li a:hover {
+        .global-nav ul li a:hover {
             color: #007BFF;
         }
         .content {
-            flex: 1;
             padding: 20px;
         }
         .stats {
@@ -61,11 +66,13 @@
     </style>
 </head>
 <body>
-    <div class="nav-bar">
+    <nav class="global-nav">
         <ul>
-            <li><a href="stock.html">View Stocks</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="stock.html">Search Stocks</a></li>
+            <li><a href="positions.html">View Positions</a></li>
         </ul>
-    </div>
+    </nav>
     <div class="content">
         <h1>Portfolio</h1>
         <div class="stats">
