@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/stock.js" defer></script>
+    <style>
+        /* Inline styles for the navigation bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .nav-bar a:hover {
+            color: #007BFF;
+        }
+        .container {
+            margin-left: 220px; /* Adjusted margin to account for the left nav-bar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #stock-graph {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="nav-bar">
+        <a href="portfolio.html">Go to Portfolio</a>
+    </div>
+
+    <!-- Main content container -->
+    <div class="container">
+        <p>Search for a stock here</p>
+        <!-- Search bar for stock ticker -->
+        <div class="search-bar">
+            <input type="text" id="stock-ticker" placeholder="Enter stock ticker (e.g., AAPL)">
+            <button id="search-button">Search</button>
+        </div>
+        <!-- Placeholder for the stock graph -->
+        <div id="stock-graph" class="graph-container">
+            <canvas id="graph-placeholder" width="600" height="400" style="border: 1px solid #ccc;">
+                Your browser does not support the canvas element.
+            </canvas>
+        </div>
+    </div>
+</body>
+</html>

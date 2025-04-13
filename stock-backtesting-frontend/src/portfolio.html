@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .nav-bar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+        }
+        .nav-bar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-bar ul li {
+            margin: 15px 0;
+        }
+        .nav-bar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .nav-bar ul li a:hover {
+            color: #007BFF;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 30%;
+            text-align: center;
+        }
+        .chart-container {
+            margin-top: 20px;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="stock.html">View Stocks</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Portfolio</h1>
+        <div class="stats">
+            <div class="stat-box">
+                <h2>Account Balance</h2>
+                <p id="account-balance">$10,000</p>
+            </div>
+            <div class="stat-box">
+                <h2>Unrealized PnL</h2>
+                <p id="unrealized-pnl">+$500</p>
+            </div>
+            <div class="stat-box">
+                <h2>Realized PnL</h2>
+                <p id="realized-pnl">+$1,200</p>
+            </div>
+        </div>
+        <div class="chart-container">
+            <h2>Account Balance Over Time</h2>
+            <canvas id="balance-chart"></canvas>
+        </div>
+    </div>
+    <script>
+        // Example data for the chart
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Account Balance',
+                data: [10000, 10500, 11000, 11500, 12000, 12500, 13000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Balance ($)'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        const ctx = document.getElementById('balance-chart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
