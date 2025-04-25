@@ -9,7 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to fetch stock data from Yahoo Finance API
     async function fetchStockData(ticker) {
         try {
-            const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1mo`);
+            const response = await fetch('http://localhost:5000/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    query: ticker
+                })
+            });
             const data = await response.json();
 
             if (data.chart.error) {
