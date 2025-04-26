@@ -1,8 +1,6 @@
 // import './styles/index.css';
 
-document.getElementById('confirm-button').addEventListener('click', () => {
-
-    document.getElementById('confirm-button').addEventListener('click', async (e) => {
+document.getElementById('confirm-button').addEventListener('click', async (e) => {
     e.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
