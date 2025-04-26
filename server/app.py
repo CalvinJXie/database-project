@@ -6,6 +6,19 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+#-----
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+
+
+#-----
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -26,6 +39,16 @@ def signup():
     # Create new user
     try:
         # add user to the database
+        #----
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            retrun jsonify({'message': 'Username already exists'}), 409
+
+        new_user = User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        #----
         return jsonify({'message': 'User created successfully'}), 201
     except Exception as e:
         # Any error
@@ -45,8 +68,15 @@ def login():
     print(username, password)
     # Check if we have the user
     try:
+        #---------
+        user = User.query.filter_by(username=username, password=password).first()
+        if user:
+            return jsonify({'message': 'Log in successful'}), 200
+        else:
+            return jsonify({'message': 'Invalid username or password'}), 401
+        #---------
         # check db
-        return jsonify({'message': 'Log in successful'}), 201
+        #return jsonify({'message': 'Log in successful'}), 201
     except Exception as e:
         return jsonify({'message': 'Error logging in'}), 500
     
