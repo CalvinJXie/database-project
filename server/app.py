@@ -68,12 +68,26 @@ def login():
     print(username, password)
     # Check if we have the user
     try:
-        #---------
-        user = User.query.filter_by(username=username, password=password).first()
-        if user:
+
+        #BAD QUERY FOR SQL INJECTION 
+        query = f"SELECT * FROM Users WHERE username = '{username}' AND password = '{password}';"
+        
+        cursor = db.engine.raw_connection().cursor()
+        cursor.execute(query)
+        result = cursor.fetchone()
+        
+        if result:
             return jsonify({'message': 'Log in successful'}), 200
         else:
-            return jsonify({'message': 'Invalid username or password'}), 401
+            return jsonify({'message': 'Invalid credentials'}), 401
+
+        #ORIGINAL QUERY
+        #---------
+        # user = User.query.filter_by(username=username, password=password).first()
+        # if user:
+        #     return jsonify({'message': 'Log in successful'}), 200
+        # else:
+        #     return jsonify({'message': 'Invalid username or password'}), 401
         #---------
         # check db
         #return jsonify({'message': 'Log in successful'}), 201
