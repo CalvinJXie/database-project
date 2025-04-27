@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+from sqlalchemy import text
 
 # Load environment variables
 load_dotenv()
@@ -76,11 +77,16 @@ def login():
         cursor.execute(query)
         result = cursor.fetchone()
         
+        #PREPARED STATEMENT part C.
+        # result = db.session.execute(text("SELECT * FROM Users WHERE username = :username AND password = :password",
+        #           {"username": username, "password": password}  
         if result:
             return jsonify({'message': 'Log in successful'}), 200
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
+                                                 
 
+        
         #ORIGINAL QUERY
         #---------
         # user = User.query.filter_by(username=username, password=password).first()
