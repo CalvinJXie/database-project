@@ -111,3 +111,29 @@ def search():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+@app.route('/changepassword', methods=['POST'])
+def changepassword():
+    data = request.get_json()
+
+    if not data or 'username' not in data or 'old_password' not in data or 'new_password' not in data:
+        return jsonify({'message': 'Missing fields'}), 400
+
+    username = data['username']
+    old_password = data['old_password']
+    new_password = data['new_password']
+
+    print(username, old_password, new_password)
+
+    try:
+        # 🚨 Vulnerable raw SQL update
+        query = f"UPDATE Users SET password = '{new_password}' WHERE username = '{username}' AND password = '{old_password}'"
+        db.session.execute(query)
+        db.session.commit()
+
+        return jsonify({'message': 'Password updated successfully'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'Error updating password'}), 500
+
+
