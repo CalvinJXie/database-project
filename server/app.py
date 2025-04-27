@@ -126,7 +126,7 @@ def changepassword():
     print(username, old_password, new_password)
 
     try:
-        # 🚨 Vulnerable raw SQL update
+        #BAD SQL 2 part B 
         query = f"UPDATE Users SET password = '{new_password}' WHERE username = '{username}' AND password = '{old_password}'"
         db.session.execute(query)
         db.session.commit()
