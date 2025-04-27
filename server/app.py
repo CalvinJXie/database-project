@@ -42,8 +42,8 @@ def signup():
         #----
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            retrun jsonify({'message': 'Username already exists'}), 409
-
+            return jsonify({'message': 'Username already exists'}), 409
+    
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
@@ -69,7 +69,7 @@ def login():
     # Check if we have the user
     try:
 
-        #BAD QUERY FOR SQL INJECTION 
+        #BAD QUERY FOR SQL INJECTION part A
         query = f"SELECT * FROM Users WHERE username = '{username}' AND password = '{password}';"
         
         cursor = db.engine.raw_connection().cursor()
