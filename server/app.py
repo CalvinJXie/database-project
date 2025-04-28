@@ -83,14 +83,20 @@ def login():
     print(username, password)
 
     try:
-        query = f"SELECT user_id FROM Users WHERE username = '{username}' AND password = '{password}';"
-        
-        cursor = db.engine.raw_connection().cursor()
-        cursor.execute(query)
+        conn = db.engine.raw_connection()
+        cursor = conn.cursor()
+
+        #VULNERABILITY: SQL Injection
+        #query = f"SELECT user_id FROM Users WHERE username = '{username}' AND password = '{password}';"
+        #cursor.execute(query)
+
+        query = "SELECT user_id FROM Users WHERE username = %s AND password = %s;"
+        cursor.execute(query, (username, password))
+
         result = cursor.fetchone()
         
         if result:
-            user_id = result[0]  # get the ID from the query result
+            user_id = result[0]
             return jsonify({
                 'message': 'Log in successful',
                 'userId': user_id
@@ -438,6 +444,34 @@ def sell_stock():
         db.session.rollback()  # Rollback any changes if an error occurs
         print(f"Error during sale: {str(e)}")  # Log the error message to the console
         return jsonify({'message': 'An error occurred while processing your request'}), 500
+    
+
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+    data = request.get_json()
+
+    if not data or 'username' not in data or 'newPassword' not in data:
+        return jsonify({'message': 'Missing username or new password'}), 400
+
+    username = data['username']
+    new_password = data['newPassword']
+
+    print(f"Password reset attempt: username={username}, newPassword={new_password}")
+
+    try:
+        conn = db.engine.raw_connection()
+        cursor = conn.cursor()
+
+        update_query = f"UPDATE Users SET password = '{new_password}' WHERE username = '{username}';"
+        cursor.execute(update_query)
+
+        conn.commit()
+
+        return jsonify({'message': 'Password updated successfully'}), 200
+
+    except Exception as e:
+        print(f"Error resetting password: {e}")
+        return jsonify({'message': 'Error resetting password'}), 500
 
 
 

@@ -2,6 +2,9 @@ import yfinance as yf
 import mysql.connector
 import csv
 from datetime import datetime
+import schedule
+import time
+
 
 def get_stock_mapping_from_db():
     mapping = {}
@@ -116,11 +119,9 @@ def update_stock_data():
     conn.close()
 
 # Schedule the update_stock_data function to run every 30 seconds.
-# schedule.every(30).seconds.do(update_stock_data)
+schedule.every(30).seconds.do(update_stock_data)
 
-# print("Starting the stock data update process using CSV tickers...")
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
-
-update_stock_data()
+print("Starting the stock data update process using CSV tickers...")
+while True:
+    schedule.run_pending()
+    time.sleep(1)
