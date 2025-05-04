@@ -23,6 +23,7 @@ Follow these steps to install, launch, and use the system:
    Change into the project directory and start the frontend server:
    ```bash
    cd money_maker
+   npm i
    npm run dev
    ```
    Open your browser and go to:
@@ -40,13 +41,13 @@ Follow these steps to install, launch, and use the system:
 5. **Create Database Tables**  
    Run the following SQL script to create all required tables:
    ```sql
-   source ~/git/database-project/SQL/create.sql;
+   source ~/git/database-project/Project/SQL/create.sql;
    ```
 
 6. **Load Sample Data**  
    Populate the database with initial sample data:
    ```sql
-   source ~/git/database-project/SQL/load.sql;
+   source ~/git/database-project/Project/SQL/load.sql;
    ```
 
 Once these steps are complete, your database system will be fully installed and running with both backend and frontend servers connected to a MySQL database.
